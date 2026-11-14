@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wasteland Survival</title>
+    <link rel="stylesheet" href="style.css?v=13">
+</head>
+<body>
+
+<!-- Player selection screen. -->
+<div id="start-screen">
+    <h1>WASTELAND SURVIVAL</h1>
+    <!-- Display the company's armoured ship. -->
+    <div class="ship-introduction">
+
+        <!-- Company introduction and armoured ship display. -->
+        <div class="ship-introduction">
+
+            <div class="company-label">GARBAGE COLLECTION INC. // EMPLOYEE BRIEFING</div>
+
+            <h2>WELCOME, CONTRACTED WORKER.</h2>
+
+            <p class="ship-description">
+                Your shift begins aboard the company's armoured transport ship.
+                Prepare to explore abandoned moons, recover valuable scrap,
+                and collect corporate assets. Remember, your contract is
+                temporary. Your profits belong to us.
+            </p>
+
+            <div class="ship-display">
+                <div class="ship-heading">YOUR DEPLOYMENT VESSEL</div>
+
+                <pre class="ship-map">#######
+#_____#
+#_____=
+#_____#
+#######</pre>
+
+                <div class="ship-legend">
+                    <span><span class="legend-symbol wall">#</span> Wall</span>
+                    <span><span class="legend-symbol floor">_</span> Floor</span>
+                    <span><span class="legend-symbol door">=</span> Door</span>
+                </div>
+            </div>
+
+            <p class="ship-warning">
+                ⚠ SURVIVAL IS NOT GUARANTEED. MEET YOUR QUOTA.
+            </p>
+
+        </div>
+    </div>
+    <p>Choose how many workers will enter the wasteland.</p>
+
+    <!-- Player count selection. -->
+    <div id="player-selection">
+        <!-- Holds the name input fields for selected players. -->
+
+        <button class="player-option" data-players="1">1 Player</button>
+        <button class="player-option" data-players="2">2 Players</button>
+        <button class="player-option" data-players="3">3 Players</button>
+        <button class="player-option" data-players="4">4 Players</button>
+        <button class="player-option" data-players="5">5 Players</button>
+    </div>
+
+    <div id="player-name-inputs"></div>
+    <!-- Start game button. -->
+    <button id="start-game-button" disabled>START GAME</button>
+</div>
+
+<!-- Main game screen. -->
+<div id="game-screen" hidden>
+
+    <!-- Game title. -->
+    <h1>Wasteland Survival</h1>
+
+    <!-- Display all player information in one horizontal row. -->
+    <div id="top-status-bar">
+
+        <!-- Current player turn. -->
+        <div id="turn-information">
+            <h2 id="current-player-name">Loading...</h2>
+            <p id="current-player-number"></p>
+        </div>
+
+        <!-- Player health. -->
+        <div class="top-status-item">
+            <p>Health</p>
+
+            <!-- Health bar with icon and value. -->
+            <div class="health-bar">
+
+                <!-- Health bar fill. -->
+                <div id="health-bar-fill"></div>
+
+                <!-- Health icon. -->
+                <span class="bar-icon">❤️</span>
+
+                <!-- Current health value. -->
+                <span id="player-health" class="bar-value">Loading...</span>
+
+            </div>
+        </div>
+
+        <!-- Player balance. -->
+        <div class="top-status-item">
+            <p>Balance</p>
+
+            <!-- Balance bar with icon and value. -->
+            <div class="credit-bar">
+
+                <!-- Balance bar fill. -->
+                <div id="credit-bar-fill"></div>
+
+                <!-- Balance icon. -->
+                <span class="bar-icon">💰</span>
+
+                <!-- Current balance value. -->
+                <span id="player-credits" class="bar-value">Loading...</span>
+
+            </div>
+        </div>
+
+        <!-- Player inventory. -->
+        <div class="top-status-item inventory-container">
+
+            <p>Inventory</p>
+
+            <!-- Inventory button. -->
+            <button id="inventory-button" type="button">
+
+                <!-- Inventory icon and item count. -->
+                🎒 <span id="inventory-count">0 items</span>
+
+                <!-- Remaining weight displayed on the button. -->
+                <span id="inventory-weight-button">50 / 50</span>
+
+            </button>
+
+            <!-- Inventory hover popup. -->
+            <div id="inventory-hover-popup">
+
+                <!-- Remaining inventory capacity. -->
+                <h3>Inventory Capacity</h3>
+                <p id="inventory-weight">50 / 50 weight remaining</p>
+
+                <!-- Individual inventory items. -->
+                <ul id="player-inventory-hover"></ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Horizontal game layout. -->
+    <div id="game-layout">
+
+        <!-- Left side: Game map. -->
+        <div id="game-map-section">
+
+            <!-- Display the game map. -->
+            <div id="game-container">
+                <div id="game-map"></div>
+            </div>
+
+        </div>
+
+        <!-- Right side: Game information and actions. -->
+        <div id="game-sidebar">
+
+            <!-- Available actions. -->
+            <div id="action-panel">
+                <h2>Available Actions</h2>
+                <div id="action-list"></div>
+            </div>
+
+            <!-- Game messages. -->
+            <div id="game-message">
+                <h3>Game Messages</h3>
+                <p id="message-text">Select an action to begin.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Inventory modal window. -->
+<div id="inventory-popup" hidden>
+
+    <!-- Dark background behind the inventory window. -->
+    <div class="inventory-overlay"></div>
+
+    <!-- Inventory window content. -->
+    <div class="inventory-modal">
+
+        <!-- Inventory heading and close button. -->
+        <div class="inventory-modal-header">
+            <h2>Your Inventory</h2>
+
+            <!-- Close the inventory window. -->
+            <button id="close-inventory-button" type="button">
+                &times;
+            </button>
+        </div>
+
+        <!-- Display the inventory items. -->
+        <ul id="player-inventory"></ul>
+
+    </div>
+
+</div>
+
+<!-- Game Over popup window. -->
+<div id="game-over-popup" hidden>
+
+    <!-- Dark background behind the popup. -->
+    <div class="game-over-overlay"></div>
+
+    <!-- Game Over window content. -->
+    <div class="game-over-modal">
+
+        <!-- Game Over heading. -->
+        <h1>GAME OVER</h1>
+
+        <!-- Game Over message. -->
+        <p>All workers have died!</p>
+        <p>The wasteland has defeated you.</p>
+
+        <!-- Restart the game. -->
+        <button id="restart-game-button" type="button">
+            RESTART GAME
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Load the JavaScript file. -->
+<script src="script.js?v=10"></script>
+
+</body>
+</html>

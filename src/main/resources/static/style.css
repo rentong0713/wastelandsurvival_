@@ -1,0 +1,1224 @@
+
+/* Apply consistent sizing to all elements. */
+* {
+    box-sizing: border-box;
+}
+
+/* Style the page. */
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: #C2B280;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Centre the player selection screen. */
+#start-screen {
+    min-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    text-align: center;
+}
+
+/* Style the main game title. */
+#start-screen h1 {
+    font-size: 42px;
+    color: white;
+    letter-spacing: 3px;
+}
+
+/* Style the selection instruction. */
+#start-screen p {
+    font-size: 18px;
+    color: white;
+}
+
+/* Arrange player selection buttons. */
+#player-selection {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* Style each player selection button. */
+.player-option {
+    padding: 15px 22px;
+    border: 2px solid white;
+    border-radius: 8px;
+    background-color: #66543b;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Highlight the selected player count. */
+.player-option.selected {
+    background-color: #b8860b;
+    border-color: #ffe08a;
+}
+
+/* Add a hover effect. */
+.player-option:hover {
+    background-color: #8b7049;
+}
+
+/* Style the start game button. */
+#start-game-button {
+    padding: 16px 40px;
+    border: none;
+    border-radius: 8px;
+    background-color: #386641;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Show when the start button is disabled. */
+#start-game-button:disabled {
+    background-color: #777777;
+    cursor: not-allowed;
+}
+
+/* Hide the game screen when inactive. */
+#game-screen[hidden] {
+    display: none !important;
+}
+
+/* Allow the game screen to grow with the map. */
+#game-screen {
+    min-height: calc(100vh - 40px);
+    height: auto;
+    display: flex !important;
+    flex-direction: column;
+    overflow: visible;
+}
+
+/* Keep the game title at its natural height. */
+#game-screen > h1 {
+    flex: 0 0 auto;
+    text-align: center;
+    margin: 0 0 15px;
+}
+
+/* Arrange the four player information items in one row. */
+#top-status-bar {
+    display: grid;
+    grid-template-columns: 7% 1.5fr 1.5fr auto;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    flex: 0 0 auto;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: #8b7049;
+}
+
+/* Keep each status item from overflowing. */
+.top-status-item {
+    min-width: 0;
+}
+
+/* Style the player turn information. */
+#turn-information {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+
+/* Style the current worker's name. */
+#current-player-name {
+    margin: 0 0 4px;
+    color: #ffe08a;
+    font-size: 14px;
+}
+
+/* Style the current worker's number. */
+#current-player-number {
+    margin: 0;
+    color: white;
+    font-size: 11px;
+}
+
+/* Style the status labels. */
+.top-status-item p {
+    margin: 0 0 5px;
+    font-size: 12px;
+}
+
+/* Style the status values. */
+.top-status-item span {
+    font-size: 12px;
+}
+
+/* Add a permanent border around health and balance values. */
+#player-health,
+#player-credits {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 2px solid #888;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+/* Create the health and balance bar containers. */
+.health-bar,
+.credit-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    margin-top: 6px;
+    background-color: #333;
+    border: 1px solid #888;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+/* Position the health and balance fills. */
+#health-bar-fill,
+#credit-bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 5px;
+    z-index: 1;
+    transition: width 0.7s ease-in-out;
+}
+
+/* Keep the health bar green. */
+#health-bar-fill {
+    background-color: #4caf50;
+}
+
+/* Keep the balance bar yellow. */
+#credit-bar-fill {
+    background-color: #e5b341;
+}
+
+/* Position the icons inside the bars. */
+.bar-icon {
+    position: absolute;
+    left: 8px;
+    z-index: 2;
+    font-size: 15px !important;
+}
+
+/* Position the values inside the bars. */
+#player-health,
+#player-credits {
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin-left: 32px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
+}
+
+/* Red border when health or balance decreases. */
+.health-bar:has(#health-bar-fill.status-decrease),
+.credit-bar:has(#credit-bar-fill.status-decrease) {
+    border-color: #e53935;
+    box-shadow: 0 0 8px #e53935;
+}
+
+/* Green border when health or balance increases. */
+.health-bar:has(#health-bar-fill.status-increase),
+.credit-bar:has(#credit-bar-fill.status-increase) {
+    border-color: #4caf50;
+    box-shadow: 0 0 8px #4caf50;
+}
+
+
+
+/* Animate the status value when it increases. */
+.status-increase {
+    animation: statusIncrease 0.7s ease;
+}
+
+/* Animate the status value when it decreases. */
+.status-decrease {
+    animation: statusDecrease 0.7s ease;
+}
+
+/* Animate the text and border in green. */
+@keyframes statusIncrease {
+    0% {
+        color: #4caf50;
+        border-color: #4caf50;
+        box-shadow: 0 0 10px #4caf50;
+        transform: scale(1.1);
+    }
+
+    100% {
+        color: inherit;
+        border-color: #888;
+        box-shadow: none;
+        transform: scale(1);
+    }
+}
+
+/* Animate the text and border in red. */
+@keyframes statusDecrease {
+    0% {
+        color: #e53935;
+        border-color: #e53935;
+        box-shadow: 0 0 10px #e53935;
+        transform: scale(1.1);
+    }
+
+    100% {
+        color: inherit;
+        border-color: #888;
+        box-shadow: none;
+        transform: scale(1);
+    }
+}
+
+/* Green glow when health increases. */
+#health-bar-fill.status-increase {
+    background-color: #4caf50;
+    box-shadow: 0 0 12px #4caf50;
+}
+
+/* Red glow when health decreases. */
+#health-bar-fill.status-decrease {
+    background-color: #4caf50;
+    box-shadow: 0 0 12px #e53935;
+}
+
+/* Yellow glow when balance increases. */
+#credit-bar-fill.status-increase {
+    background-color: #e5b341;
+    box-shadow: 0 0 12px #ffeb3b;
+}
+
+/* Orange glow when balance decreases. */
+#credit-bar-fill.status-decrease {
+    background-color: #e5b341;
+    box-shadow: 0 0 12px #ff9800;
+}
+
+
+
+
+
+/* Change the inventory button appearance when hovered. */
+#inventory-button:hover {
+    background-color: #92734b;
+}
+
+/* Arrange the map and sidebar horizontally. */
+#game-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(200px, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
+    width: 100%;
+    flex: 0 0 auto;
+    min-width: 0;
+    min-height: 0;
+    overflow: visible;
+    align-items: stretch;
+}
+
+/* Let the map section follow the map's actual height. */
+#game-map-section {
+    grid-column: 1;
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: stretch;
+    overflow: visible;
+}
+
+/* Make the container fit the map's actual height. */
+#game-container {
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 0;
+    overflow: visible;
+}
+
+/* Display the game map as a grid with a fixed height. */
+#game-map {
+    display: grid;
+    width: 100%;
+    height: 480px;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 480px;
+    grid-auto-flow: row;
+    gap: 0;
+    overflow: hidden;
+}
+
+/*!* Make every tile fill its grid cell. *!*/
+/*.tile {*/
+/*    position: relative;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    min-width: 0;*/
+/*    min-height: 0;*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/* Make every tile fit its allocated grid space. */
+.tile {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* Make tile images fit inside their tiles. */
+.tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/*!* Ground stays at the bottom. *!*/
+/*.ground-image {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*    object-fit: fill;*/
+/*    z-index: 1;*/
+/*}*/
+
+/* Make ground images completely fill each map tile. */
+.ground-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    display: block;
+    z-index: 1;
+}
+
+/* Enlarge the door image without affecting other ground images. */
+.door-image {
+    transform: scale(1.3);
+    transform-origin: center;
+}
+
+/* Items appear above the ground. */
+.item-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 2;
+}
+
+/* Actors appear above everything else. */
+.actor-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 3;
+}
+
+
+
+/* Keep the sidebar within the map height. */
+#game-sidebar {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    gap: 15px;
+}
+
+/* Style the sidebar panels. */
+#action-panel,
+#game-message {
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    background-color: #66543b;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+/* Keep the action panel within the remaining sidebar space. */
+#action-panel {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* Keep the available actions heading visible. */
+#action-panel h2 {
+    flex: 0 0 auto;
+    margin-top: 0;
+    color: #ffe08a;
+    font-size: 13px;
+}
+
+/* Allow only the action buttons to scroll. */
+#action-list {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    gap: 5px;
+    padding: 5px;
+}
+
+/* Style normal action buttons. */
+.action-button {
+    display: block;
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 6px 8px;
+    border: 2px solid white;
+    border-radius: 8px;
+    background-color: #8b7049;
+    color: white;
+    font-size: 10px;
+    text-align: left;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Arrange movement buttons in a number keypad layout. */
+.movement-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 5px;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+/* Style each movement button. */
+.movement-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+    min-height: 45px;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Keep empty keypad positions in place. */
+.movement-empty {
+    min-height: 45px;
+}
+
+/* Highlight movement buttons when hovering. */
+.movement-button:hover {
+    background-color: #b8860b;
+    border-color: #ffe08a;
+}
+
+/* Highlight normal action buttons when hovering. */
+.action-button:hover {
+    background-color: #b8860b;
+    border-color: #ffe08a;
+}
+
+/* Show a pressed effect. */
+.action-button:active,
+.movement-button:active {
+    background-color: #386641;
+}
+
+/* Style the vertical scrollbar. */
+#action-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Style the scrollbar track. */
+#action-list::-webkit-scrollbar-track {
+    background-color: #4d3e2b;
+    border-radius: 8px;
+}
+
+/* Style the scrollbar thumb. */
+#action-list::-webkit-scrollbar-thumb {
+    background-color: #b8860b;
+    border-radius: 8px;
+}
+
+/* Keep game messages visible. */
+#game-message {
+    flex: 0 0 auto;
+}
+
+/* Style the game message heading. */
+#game-message h3 {
+    margin: 0 0 10px;
+    color: #ffe08a;
+    font-size: 18px;
+}
+
+/* Style the action result text. */
+#message-text {
+    margin: 0;
+    color: white;
+    font-size: 15px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+/* Highlight the tile occupied by the current worker. */
+.active-player-tile {
+    position: relative;
+    z-index: 2;
+    outline: 3px solid #ffff66;
+    outline-offset: -3px;
+    animation: player-glow 1.5s infinite alternate;
+}
+
+/* Create a soft pulsing glow around the active worker. */
+@keyframes player-glow {
+    from {
+        box-shadow:
+                inset 0 0 8px #ffff66,
+                0 0 8px #ffff66;
+    }
+
+    to {
+        box-shadow:
+                inset 0 0 18px #ffff66,
+                0 0 18px #ffff66;
+    }
+}
+
+/* Cover the entire website with the inventory modal. */
+#inventory-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hide the modal when it is closed. */
+#inventory-popup[hidden] {
+    display: none !important;
+}
+
+/* Create the dark background behind the modal. */
+.inventory-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Style the inventory window. */
+.inventory-modal {
+    position: relative;
+    z-index: 1001;
+    width: 90%;
+    max-width: 450px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 20px;
+    border: 2px solid white;
+    border-radius: 12px;
+    background-color: #8b7049;
+    color: white;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Arrange the heading and close button. */
+.inventory-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Remove unnecessary heading spacing. */
+.inventory-modal-header h2 {
+    margin: 0;
+}
+
+/* Style the close button. */
+#close-inventory-button {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* Change the close button appearance when hovered. */
+#close-inventory-button:hover {
+    color: #ffcccc;
+}
+
+/* Style the inventory popup heading. */
+#inventory-popup h3 {
+    margin-top: 0;
+}
+
+/* Style the inventory list. */
+#player-inventory {
+    margin: 0 0 0;
+    padding-left: 20px;
+}
+
+/* Add spacing between inventory items. */
+#player-inventory li {
+    margin-bottom: 6px;
+}
+
+/* Arrange the player name input fields vertically. */
+#player-name-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+/* Style each player name input field. */
+.player-name-input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #8b7049;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    outline: none;
+}
+
+/* Highlight the input field when selected. */
+.player-name-input:focus {
+    border-color: #4caf50;
+}
+
+/* Adapt the layout for smaller screens. */
+@media (max-width: 700px) {
+
+    /* Allow the game screen to grow naturally on mobile. */
+    #game-screen {
+        height: auto;
+        min-height: calc(100vh - 40px);
+        overflow: visible;
+    }
+
+    /* Arrange the map and sidebar vertically. */
+    #game-layout {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        flex: none;
+        overflow: visible;
+    }
+
+    /* Place both sections in the same column. */
+    #game-map-section,
+    #game-sidebar {
+        grid-column: 1;
+    }
+
+    /* Let the map use its natural height. */
+    #game-map-section {
+        height: auto;
+        min-height: 0;
+    }
+
+    /* Allow the sidebar to grow naturally. */
+    #game-sidebar {
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+    }
+
+    /* Let the action panel use its natural height. */
+    #action-panel {
+        flex: none;
+        min-height: 0;
+    }
+
+    /* Limit the action list height on mobile. */
+    #action-list {
+        flex: none;
+        max-height: 350px;
+        min-height: 0;
+    }
+}
+
+/* Keep a permanent normal border around the health bar. */
+.health-bar {
+    border: 1px solid #888;
+    transition: border-color 0.3s ease;
+}
+
+/* Keep a permanent normal border around the balance bar. */
+.credit-bar {
+    border: 1px solid #888;
+    transition: border-color 0.3s ease;
+}
+
+/* Flash a red border when health or balance decreases. */
+.health-bar.status-decrease,
+.credit-bar.status-decrease {
+    animation: redBorderFlash 0.7s ease;
+}
+
+/* Flash a green border when health or balance increases. */
+.health-bar.status-increase,
+.credit-bar.status-increase {
+    animation: greenBorderFlash 0.7s ease;
+}
+
+/* Red border appears briefly, then disappears. */
+@keyframes redBorderFlash {
+    0%, 100% {
+        border-color: #888;
+        box-shadow: none;
+    }
+
+    30%, 70% {
+        border-color: #e53935;
+        box-shadow: 0 0 8px #e53935;
+    }
+}
+
+/* Green border appears briefly, then disappears. */
+@keyframes greenBorderFlash {
+    0%, 100% {
+        border-color: #888;
+        box-shadow: none;
+    }
+
+    30%, 70% {
+        border-color: #4caf50;
+        box-shadow: 0 0 8px #4caf50;
+    }
+}
+
+/* Dark background covering the entire screen. */
+#game-over-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hide the popup when it is not needed. */
+#game-over-popup[hidden] {
+    display: none !important;
+}
+
+/* Darken the background behind the popup. */
+.game-over-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+/* Game Over window. */
+.game-over-modal {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 450px;
+    padding: 35px;
+    text-align: center;
+    background-color: #29251e;
+    border: 3px solid #e53935;
+    border-radius: 12px;
+    color: white;
+}
+
+/* Game Over heading. */
+.game-over-modal h1 {
+    color: #e53935;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+/* Game Over message. */
+.game-over-modal p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+/* Restart button. */
+#restart-game-button {
+    margin-top: 25px;
+    padding: 12px 25px;
+    background-color: #e53935;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Restart button hover effect. */
+#restart-game-button:hover {
+    background-color: #b71c1c;
+}
+
+/* Animate the inventory when an item is picked up. */
+.inventory-increase {
+    animation: inventoryPickup 0.7s ease;
+}
+
+/* Animate the inventory when an item is dropped. */
+.inventory-decrease {
+    animation: inventoryDrop 0.7s ease;
+}
+
+/* Animate the inventory when its contents change. */
+.inventory-change {
+    animation: inventoryChange 0.7s ease;
+}
+
+/* Green glow when an item is picked up. */
+@keyframes inventoryPickup {
+    0% {
+        border-color: #4caf50;
+        box-shadow: 0 0 15px #4caf50;
+        transform: scale(1.08);
+    }
+
+    100% {
+        border-color: white;
+        box-shadow: none;
+        transform: scale(1);
+    }
+}
+
+/* Red glow when an item is dropped. */
+@keyframes inventoryDrop {
+    0% {
+        border-color: #e53935;
+        box-shadow: 0 0 15px #e53935;
+        transform: scale(0.95);
+    }
+
+    100% {
+        border-color: white;
+        box-shadow: none;
+        transform: scale(1);
+    }
+}
+
+/* Yellow glow when inventory contents change without a count change. */
+@keyframes inventoryChange {
+    0% {
+        border-color: #ffeb3b;
+        box-shadow: 0 0 15px #ffeb3b;
+        transform: scale(1.05);
+    }
+
+    100% {
+        border-color: white;
+        box-shadow: none;
+        transform: scale(1);
+    }
+}
+
+/* Style the company introduction section. */
+.ship-introduction {
+    max-width: 650px;
+    margin: 25px auto;
+    padding: 22px;
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid #82734b;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Style the company briefing label. */
+.company-label {
+    color: #d6b75c;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+/* Style the welcome heading. */
+.ship-introduction h2 {
+    color: #f1c75b;
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin: 10px 0;
+}
+
+/* Style the story description. */
+.ship-description {
+    max-width: 540px;
+    margin: 12px auto 20px;
+    color: #d0d0d0;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Style the ship display panel. */
+.ship-display {
+    display: inline-block;
+    min-width: 260px;
+    padding: 15px 30px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #665b3e;
+    border-radius: 8px;
+}
+
+/* Style the ship display heading. */
+.ship-heading {
+    color: #aaa;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+/* Style the armoured ship map. */
+.ship-map {
+    display: inline-block;
+    margin: 0;
+    color: #e8c75b;
+    font-family: monospace;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.4;
+    text-align: left;
+}
+
+/* Arrange the ship symbol legend. */
+.ship-legend {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 15px;
+    color: #ccc;
+    font-size: 12px;
+}
+
+/* Style individual map symbols. */
+.legend-symbol {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.legend-symbol.wall {
+    color: #aaa;
+}
+
+.legend-symbol.floor {
+    color: #e8c75b;
+}
+
+.legend-symbol.door {
+    color: #4caf50;
+}
+
+/* Style the company warning. */
+.ship-warning {
+    margin: 18px 0 0;
+    color: #e57349;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+/* Set the inventory container as the popup's positioning reference. */
+.inventory-container {
+    position: relative;
+}
+
+/* Style the inventory button. */
+#inventory-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    border: 2px solid white;
+    border-radius: 8px;
+    background-color: #66543b;
+    color: white;
+    cursor: pointer;
+}
+
+/* Change the inventory button appearance when hovered. */
+#inventory-button:hover {
+    background-color: #92734b;
+}
+
+/* Style the remaining weight displayed on the button. */
+#inventory-weight-button {
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Style the inventory hover popup. */
+#inventory-hover-popup {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 230px;
+    padding: 15px;
+    margin-top: 8px;
+    background-color: #3d3023;
+    border: 2px solid #d6b77a;
+    border-radius: 8px;
+    color: white;
+    z-index: 1000;
+}
+
+/* Display the popup when hovering over the inventory container. */
+.inventory-container:hover #inventory-hover-popup {
+    display: block;
+}
+
+/* Style the popup heading. */
+#inventory-hover-popup h3 {
+    margin: 0 0 10px;
+    font-size: 15px;
+}
+
+/* Style the remaining weight in the popup. */
+#inventory-weight {
+    display: block;
+    margin: 0 0 12px;
+    color: #f1d995;
+    font-size: 12px;
+}
+
+/* Style the inventory item list. */
+#player-inventory-hover {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 12px;
+}
+
+/* Add spacing between inventory items. */
+#player-inventory-hover li {
+    margin-bottom: 6px;
+}
+
+
+
+
+
+/* Display a visible teleport marker. */
+.teleport-destination-tile::after {
+    content: "T";
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: orange;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 50%;
+    z-index: 100;
+    pointer-events: none;
+}
+
+/* Prevent tiny white lines between adjacent map tiles. */
+#game-map {
+    gap: 0 !important;
+    row-gap: 0 !important;
+    column-gap: 0 !important;
+    align-content: start;
+}
+
+/* Ensure tiles have no spacing or borders. */
+#game-map .tile {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    line-height: 0;
+}
+
+/* Slightly overlap ground images to hide rendering seams. */
+#game-map .ground-image {
+    width: 100%;
+    height: calc(100% + 1px);
+    display: block;
+    object-fit: fill;
+}
