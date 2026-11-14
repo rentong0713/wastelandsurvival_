@@ -205,7 +205,8 @@ document.addEventListener("DOMContentLoaded", function () {
         "v": "/images/ground/fsapling.png",
         "Y": "/images/ground/fmature.png",
         "w": "/images/ground/wsapling.png",
-        "W": "/images/ground/wmature.png"
+        "W": "/images/ground/wmature.png",
+        "V": "/images/ground/vent.png"
     };
 
 
