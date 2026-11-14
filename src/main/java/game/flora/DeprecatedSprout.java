@@ -26,6 +26,6 @@ public class DeprecatedSprout extends Flora {
         // Spawns Undead
         this.behaviours.put(1, new SpawnOnProximityBehaviour(new UndeadSpawner()));
         // Grows directly to Mature Tree
-        this.behaviours.put(2, new GrowBehaviour(20, 25, new DeprecatedMatureTree()));
+        this.behaviours.put(2, new GrowBehaviour(20, 25 , new DeprecatedMatureTree()));
     }
 }

@@ -201,12 +201,19 @@ document.addEventListener("DOMContentLoaded", function () {
         "◎": "/images/ground/magic_circle.png",
         "N": "/images/ground/iron_door.png",
         "M": "/images/ground/titanium_door.png",
-        "y": "/images/ground/fsprout.png",
+        "y": "/images/ground/sprout.png",
         "v": "/images/ground/fsapling.png",
         "Y": "/images/ground/fmature.png",
         "w": "/images/ground/wsapling.png",
         "W": "/images/ground/wmature.png",
-        "V": "/images/ground/vent.png"
+        "V": "/images/ground/vent.png",
+        "^": "/images/ground/fire.png",
+        ">": "/images/items/plasma_cutter.png",
+        "%": "/images/items/aluminium_scrap.png",
+        "@": "/images/items/industrial_fan.png",
+        "?": "/images/items/alien_artifact .png",
+        "s": "/images/actors/scrap_snatcher.png",
+        "H": "/images/ground/monolith.png"
     };
 
 
