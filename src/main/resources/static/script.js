@@ -218,6 +218,160 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*
+     * MAP CAMERA
+     */
+
+    // Store the current camera mode.
+    let cameraMode = "follow";
+
+    // Store the latest worker position and map dimensions.
+    let latestPlayerX = null;
+    let latestPlayerY = null;
+    let latestMapRows = 0;
+    let latestMapColumns = 0;
+
+    // Set the zoom level when following a worker.
+    const workerZoom = 2.5;
+
+    // Update the map camera position and zoom.
+    function updateMapCamera(playerX, playerY, mapRows, mapColumns) {
+
+        // Get the map and its visible container.
+        const gameMap = document.getElementById("game-map");
+        const gameContainer = document.getElementById("game-container");
+
+        // Stop if the map elements do not exist.
+        if (!gameMap || !gameContainer) {
+            return;
+        }
+
+        // Store the latest worker position and map dimensions.
+        latestPlayerX = playerX;
+        latestPlayerY = playerY;
+        latestMapRows = mapRows;
+        latestMapColumns = mapColumns;
+
+        // Get the original map dimensions.
+        const mapWidth = gameMap.offsetWidth;
+        const mapHeight = gameMap.offsetHeight;
+
+        // Get the visible container dimensions.
+        const viewportWidth = gameContainer.clientWidth;
+        const viewportHeight = gameContainer.clientHeight;
+
+        // Stop if the map has no dimensions yet.
+        if (mapWidth === 0 || mapHeight === 0 ||
+            viewportWidth === 0 || viewportHeight === 0) {
+            return;
+        }
+
+        // Store the camera zoom and position.
+        let zoom;
+        let translateX;
+        let translateY;
+
+        // Show the entire map.
+        if (cameraMode === "overview") {
+
+            // Calculate the zoom needed to fit the whole map.
+            zoom = Math.min(
+                viewportWidth / mapWidth,
+                viewportHeight / mapHeight,
+                1
+            );
+
+            // Centre the entire map inside the container.
+            translateX = (viewportWidth - mapWidth * zoom) / 2;
+            translateY = (viewportHeight - mapHeight * zoom) / 2;
+
+        } else {
+
+            // Zoom in to follow the active worker.
+            zoom = workerZoom;
+
+            // Calculate the centre position of the worker.
+            const workerCentreX =
+                (playerX + 0.5) * (mapWidth / mapColumns);
+
+            const workerCentreY =
+                (playerY + 0.5) * (mapHeight / mapRows);
+
+            // Centre the worker inside the visible container.
+            translateX = viewportWidth / 2 - workerCentreX * zoom;
+            translateY = viewportHeight / 2 - workerCentreY * zoom;
+
+            // Prevent empty space from appearing around the map.
+            translateX = Math.max(
+                viewportWidth - mapWidth * zoom,
+                Math.min(0, translateX)
+            );
+
+            translateY = Math.max(
+                viewportHeight - mapHeight * zoom,
+                Math.min(0, translateY)
+            );
+        }
+
+        // Set the map transformation origin.
+        gameMap.style.transformOrigin = "0 0";
+
+        // Apply the camera position and zoom.
+        gameMap.style.transform =
+            `translate(${translateX}px, ${translateY}px) scale(${zoom})`;
+    }
+
+    // Make the Follow Worker button work.
+    document.getElementById("follow-worker-button")
+        .addEventListener("click", function () {
+
+            // Change the camera mode.
+            cameraMode = "follow";
+
+            // Centre the camera on the active worker.
+            if (latestPlayerX !== null) {
+                updateMapCamera(
+                    latestPlayerX,
+                    latestPlayerY,
+                    latestMapRows,
+                    latestMapColumns
+                );
+            }
+        });
+
+    // Make the View Entire Map button work.
+    document.getElementById("overview-map-button")
+        .addEventListener("click", function () {
+
+            // Change the camera mode.
+            cameraMode = "overview";
+
+            // Show the entire map.
+            if (latestPlayerX !== null) {
+                updateMapCamera(
+                    latestPlayerX,
+                    latestPlayerY,
+                    latestMapRows,
+                    latestMapColumns
+                );
+            }
+        });
+
+    // Recalculate the camera when the browser window is resized.
+    window.addEventListener("resize", function () {
+
+        // Update the camera using the latest worker position.
+        if (latestPlayerX !== null) {
+            updateMapCamera(
+                latestPlayerX,
+                latestPlayerY,
+                latestMapRows,
+                latestMapColumns
+            );
+        }
+    });
+
+
+    /*
      * PART 4: CREATE TILE IMAGES
      */
 
@@ -1103,6 +1257,14 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(
                 "Total teleport markers:",
                 document.querySelectorAll(".teleport-destination-tile").length
+            );
+
+            // Update the camera after all map tiles have been created.
+            updateMapCamera(
+                currentTurn.playerX,
+                currentTurn.playerY,
+                mapRows.length,
+                mapRows[0].length
             );
 
         } catch (error) {

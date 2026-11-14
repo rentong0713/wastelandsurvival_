@@ -5,20 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wasteland Survival</title>
-    <link rel="stylesheet" href="style.css?v=14">
+    <link rel="stylesheet" href="style.css?v=15">
 </head>
 <body>
 
 <!-- Player selection screen. -->
 <div id="start-screen">
+
     <h1>WASTELAND SURVIVAL</h1>
+
     <!-- Display the company's armoured ship. -->
     <div class="ship-introduction">
 
         <!-- Company introduction and armoured ship display. -->
         <div class="ship-introduction">
 
-            <div class="company-label">GARBAGE COLLECTION INC. // EMPLOYEE BRIEFING</div>
+            <div class="company-label">
+                GARBAGE COLLECTION INC. // EMPLOYEE BRIEFING
+            </div>
 
             <h2>WELCOME, CONTRACTED WORKER.</h2>
 
@@ -30,7 +34,10 @@
             </p>
 
             <div class="ship-display">
-                <div class="ship-heading">YOUR DEPLOYMENT VESSEL</div>
+
+                <div class="ship-heading">
+                    YOUR DEPLOYMENT VESSEL
+                </div>
 
                 <pre class="ship-map">#######
 #_____#
@@ -43,6 +50,7 @@
                     <span><span class="legend-symbol floor">_</span> Floor</span>
                     <span><span class="legend-symbol door">=</span> Door</span>
                 </div>
+
             </div>
 
             <p class="ship-warning">
@@ -50,24 +58,32 @@
             </p>
 
         </div>
+
     </div>
+
     <p>Choose how many workers will enter the wasteland.</p>
 
     <!-- Player count selection. -->
     <div id="player-selection">
-        <!-- Holds the name input fields for selected players. -->
 
         <button class="player-option" data-players="1">1 Player</button>
         <button class="player-option" data-players="2">2 Players</button>
         <button class="player-option" data-players="3">3 Players</button>
         <button class="player-option" data-players="4">4 Players</button>
         <button class="player-option" data-players="5">5 Players</button>
+
     </div>
 
+    <!-- Holds the name input fields for selected players. -->
     <div id="player-name-inputs"></div>
+
     <!-- Start game button. -->
-    <button id="start-game-button" disabled>START GAME</button>
+    <button id="start-game-button" disabled>
+        START GAME
+    </button>
+
 </div>
+
 
 <!-- Main game screen. -->
 <div id="game-screen" hidden>
@@ -78,14 +94,36 @@
     <!-- Display all player information in one horizontal row. -->
     <div id="top-status-bar">
 
-        <!-- Current player turn. -->
+        <!-- Current player turn and map camera controls. -->
         <div id="turn-information">
+
+            <!-- Display the current worker's name. -->
             <h2 id="current-player-name">Loading...</h2>
+
+            <!-- Display the current worker's number. -->
             <p id="current-player-number"></p>
+
+            <!-- Display the map camera controls below the player turn. -->
+            <div id="map-camera-controls">
+
+                <!-- Follow the active worker. -->
+                <button id="follow-worker-button" type="button">
+                    Follow Worker
+                </button>
+
+                <!-- Display the entire map. -->
+                <button id="overview-map-button" type="button">
+                    View Entire Map
+                </button>
+
+            </div>
+
         </div>
+
 
         <!-- Player health. -->
         <div class="top-status-item">
+
             <p>Health</p>
 
             <!-- Health bar with icon and value. -->
@@ -98,13 +136,18 @@
                 <span class="bar-icon">❤️</span>
 
                 <!-- Current health value. -->
-                <span id="player-health" class="bar-value">Loading...</span>
+                <span id="player-health" class="bar-value">
+                    Loading...
+                </span>
 
             </div>
+
         </div>
+
 
         <!-- Player balance. -->
         <div class="top-status-item">
+
             <p>Balance</p>
 
             <!-- Balance bar with icon and value. -->
@@ -117,10 +160,14 @@
                 <span class="bar-icon">💰</span>
 
                 <!-- Current balance value. -->
-                <span id="player-credits" class="bar-value">Loading...</span>
+                <span id="player-credits" class="bar-value">
+                    Loading...
+                </span>
 
             </div>
+
         </div>
+
 
         <!-- Player inventory. -->
         <div class="top-status-item inventory-container">
@@ -143,7 +190,10 @@
 
                 <!-- Remaining inventory capacity. -->
                 <h3>Inventory Capacity</h3>
-                <p id="inventory-weight">50 / 50 weight remaining</p>
+
+                <p id="inventory-weight">
+                    50 / 50 weight remaining
+                </p>
 
                 <!-- Individual inventory items. -->
                 <ul id="player-inventory-hover"></ul>
@@ -154,6 +204,7 @@
 
     </div>
 
+
     <!-- Horizontal game layout. -->
     <div id="game-layout">
 
@@ -162,24 +213,36 @@
 
             <!-- Display the game map. -->
             <div id="game-container">
+
                 <div id="game-map"></div>
+
             </div>
 
         </div>
+
 
         <!-- Right side: Game information and actions. -->
         <div id="game-sidebar">
 
             <!-- Available actions. -->
             <div id="action-panel">
+
                 <h2>Available Actions</h2>
+
                 <div id="action-list"></div>
+
             </div>
+
 
             <!-- Game messages. -->
             <div id="game-message">
+
                 <h3>Game Messages</h3>
-                <p id="message-text">Select an action to begin.</p>
+
+                <p id="message-text">
+                    Select an action to begin.
+                </p>
+
             </div>
 
         </div>
@@ -187,6 +250,7 @@
     </div>
 
 </div>
+
 
 <!-- Inventory modal window. -->
 <div id="inventory-popup" hidden>
@@ -199,12 +263,14 @@
 
         <!-- Inventory heading and close button. -->
         <div class="inventory-modal-header">
+
             <h2>Your Inventory</h2>
 
             <!-- Close the inventory window. -->
             <button id="close-inventory-button" type="button">
                 &times;
             </button>
+
         </div>
 
         <!-- Display the inventory items. -->
@@ -213,6 +279,7 @@
     </div>
 
 </div>
+
 
 <!-- Game Over popup window. -->
 <div id="game-over-popup" hidden>
@@ -239,8 +306,9 @@
 
 </div>
 
+
 <!-- Load the JavaScript file. -->
-<script src="script.js?v=11"></script>
+<script src="script.js?v=12"></script>
 
 </body>
 </html>
