@@ -52,10 +52,20 @@
     <!-- Holds the name input fields for selected players. -->
     <div id="player-name-inputs"></div>
 
-    <!-- Start game button. -->
-    <button id="start-game-button" disabled>
-        START GAME
-    </button>
+    <!-- Starting page buttons. -->
+    <div id="start-buttons">
+
+        <!-- Start game button. -->
+        <button id="start-game-button">
+            START GAME
+        </button>
+
+        <!-- Game guide button. -->
+        <button id="game-guide-button" type="button">
+            GAME GUIDE
+        </button>
+
+    </div>
 
 </div>
 
@@ -284,6 +294,136 @@
 
 <!-- Load the JavaScript file. -->
 <script src="script.js?v=12"></script>
+
+
+<!-- Game guide popup. -->
+<div id="game-guide-modal" class="game-guide-modal">
+
+    <div class="game-guide-content">
+
+        <!-- Popup header. -->
+        <div class="game-guide-header">
+            <h2>GAME GUIDE</h2>
+
+            <!-- Button to close the popup. -->
+            <button id="close-game-guide" type="button">
+                X
+            </button>
+        </div>
+
+        <p class="game-guide-intro">
+            Learn about the actors, environments, items and systems
+            you will encounter during your mission.
+        </p>
+
+        <!-- Actors section. -->
+        <details open>
+            <summary>ACTORS</summary>
+            <ul>
+                <li><b>ContractedWorker (ඞ):</b> Player character with health, inventory, maximum carrying capacity of 50 units, and the ability to explore, collect resources, trade, teleport, consume items, use weapons and interact with the environment; can be infected and affected by traps.</li>
+                <li><b>Undead (Ѫ):</b> Hostile creature with 15 HP that wanders and attacks nearby Workers for 1 damage with a 10% hit chance, hunts Workers when the alarm activates, dies instantly when infected by a Parasite, and can be spawned by holes and trees.</li>
+                <li><b>Slime (⍾):</b> Non-hostile creature with 25 HP that wanders, consumes consumable items from the ground and forces adjacent Workers to drop their inventory when spawned.</li>
+                <li><b>Parasite (x):</b> Creature with 30 HP that infects one adjacent valid target before dying; can be instantly killed by the Parasite Rifle.</li>
+                <li><b>Scrap Snatcher (s):</b> Creature with 25 HP that moves randomly, collects depositable resources, and becomes aggressive when infected by a Parasite.</li>
+                <li><b>Weapon Dealer:</b> Non-hostile NPC that wanders Moon 99-Deprecated and offers three weapons to adjacent Workers.</li>
+                <li><b>Security Drone (optional):</b> Aggressive creature that hunts and attacks Workers and other creatures when the alarm activates.</li>
+                <li><b>NPC:</b> Base class for creatures that can trigger traps, receive damage and status effects, and stop moving or attacking while stunned.</li>
+            </ul>
+        </details>
+
+        <!-- Grounds section. -->
+        <details>
+            <summary>GROUNDS</summary>
+            <ul>
+                <li><b>Wall (#):</b> Blocks Workers from passing through.</li>
+                <li><b>Floor (_):</b> Allows Workers to walk across the facility and transforms into ScorchedEarth when caught in a Fire Mine explosion.</li>
+                <li><b>Door (=, N, M):</b> Aluminium, Iron and Titanium doors requiring AccessCard Levels 1, 2 and 3 respectively; unlocking causes different effects, including damage, fire or healing; Aluminium Doors can also be cut using a Plasma Cutter.</li>
+                <li><b>Puddle (~):</b> Allows Workers standing on it to drink toxic or purified water depending on whether they carry a SterilisationBox.</li>
+                <li><b>Fire (^):</b> Burns actors standing on it, dealing 1 damage per turn for 5 turns.</li>
+                <li><b>Hole (O):</b> Spawns creatures every 20 turns; can spawn Undead, Slimes or Scrap Snatchers on 99-Deprecated, and Undead, Parasites or Scrap Snatchers on 20-Overflow; has a 1% chance to expand after successfully spawning.</li>
+                <li><b>Vent (V):</b> Spawns Parasites, Slimes or Scrap Snatchers when a Worker is nearby, poisons adjacent actors after successfully spawning, and can be cut with a Plasma Cutter to produce an Industrial Fan and spawn an Undead.</li>
+                <li><b>Teleportation Tube (Φ):</b> Teleports Workers to predetermined locations within or between maps, with a 50% malfunction chance and fire spawning at the destination.</li>
+                <li><b>Magic Circle (◎):</b> Randomly teleports Workers to another Magic Circle on the same map and spawns a Flask beside the destination.</li>
+                <li><b>Toxic Waste (≈):</b> Damages any actor standing on it for 1 HP per turn.</li>
+                <li><b>Fleshy Tree Sprout (y):</b> On 99-Deprecated, has a 25% chance to grow into a Mature Tree every 20 turns and spawns an Undead when a Worker approaches; on other maps, it spawns a Slime and grows into a Sapling.</li>
+                <li><b>Fleshy Tree Sapling (v):</b> Grows into a Mature Tree with a 50% chance every 25 turns.</li>
+                <li><b>Fleshy Tree Mature Tree (Y):</b> On 99-Deprecated, spawns a Scrap Snatcher when approached and has a 50% chance to grow into a Fleshy Monolith every 35 turns; on other maps, it spawns an Undead when approached.</li>
+                <li><b>Fleshy Monolith (H):</b> Cannot grow further and teleports any adjacent Worker to a random valid location on the same map every turn.</li>
+                <li><b>Warper Tree Sapling (w):</b> Has a 25% chance to grow into a Mature Tree every 20 turns.</li>
+                <li><b>Warper Tree Mature Tree (W):</b> Automatically teleports nearby Workers to a random location on the map.</li>
+                <li><b>Supercomputer (≡):</b> Shop terminal that handles Worker Credit purchases and sales, accepts Company Credit deposits, tracks quota deadlines and makes adjacent Workers unconscious if they fail to meet the quota.</li>
+                <li><b>Alarm Tile (optional):</b> Triggers the facility alarm when a Worker steps onto it.</li>
+                <li><b>IceTile:</b> Temporarily replaces the target's ground for 5 turns, deals 1 cold damage and applies frostbite (1 damage per turn for 3 turns), then restores the original ground.</li>
+                <li><b>PoisonGround:</b> Temporarily replaces a killed Parasite's tile for 6 turns and applies PoisonStatus (2 damage per turn for 3 turns) to actors stepping onto it.</li>
+                <li><b>ScorchedEarth (⌂):</b> Hazardous terrain created by Fire Mine explosions that continuously damages actors standing on it.</li>
+            </ul>
+        </details>
+
+        <!-- Items section. -->
+        <details>
+            <summary>ITEMS</summary>
+            <ul>
+                <li><b>Flask (u):</b> Can be drunk five times, restoring 1 HP per use, and remains in the inventory when empty.</li>
+                <li><b>AccessCard Level 1 (▤):</b> Weighs 1 unit and unlocks Aluminium Doors.</li>
+                <li><b>AccessCard Level 2 (α):</b> Weighs 2 units, unlocks Aluminium and Iron Doors, and deals 5 damage when purchased.</li>
+                <li><b>AccessCard Level 3 (◐):</b> Weighs 3 units, unlocks all doors, and has a 50% chance of deducting an additional 50 credits when purchased.</li>
+                <li><b>FirstAidKit (+):</b> Permanently increases maximum health by 1, fully heals the Worker, has a 20-turn cooldown and costs 1,000 credits.</li>
+                <li><b>SterilisationBox (▣):</b> Allows Workers to sterilise consumable items and grounds; costs 750 credits and removes one random inventory item when purchased.</li>
+                <li><b>Apple (ó):</b> Weighs 1 unit; heals 3 HP if sterilised, otherwise poisons the consumer for 5 turns (1 damage per turn); sells for 1 credit.</li>
+                <li><b>Cookies (◍):</b> Weighs 2 units and has 5 uses; each cookie reduces maximum HP by 1 or heals 1 HP if sterilised; sells for 1 credit per remaining cookie and loses 1 cookie per turn when infected.</li>
+                <li><b>Lantern (&):</b> Weighs 7 units, has 10 oil units and a 5% chance each turn while carried to leak and ignite the ground beneath the Worker; sells for 5 credits per remaining oil unit and loses 1 oil per turn when infected.</li>
+                <li><b>Floppy Disk (⊟):</b> Weighs 1 unit and sells for 1 credit, with a 50% chance of deducting 50 additional credits.</li>
+                <li><b>CRT Monitor (◙):</b> Weighs 30 units and sells for 25 credits; heals the seller by 5 HP, with a 20% chance of dealing 2 damage and spawning Fire on surrounding tiles.</li>
+                <li><b>Alien Cube (◈):</b> Can be carried and used to teleport to 1 of 3 random locations on the current map, permanently turning adjacent source tiles into Toxic Waste; sells for 25 credits but spawns an Undead beside the seller; can be cut with a Plasma Cutter to produce an Alien Artifact and poison the Worker.</li>
+                <li><b>Plasma Cutter (&gt;):</b> Weighs 7 units, costs 50 Worker Credits, deals 5 immediate damage and burns the buyer for 5 turns; allows Workers to cut Aluminium Doors, Vents and Alien Cubes.</li>
+                <li><b>Aluminium Scrap (%):</b> Weighs 2 units; can be deposited for 50 Company Credits, with a 20% chance of dealing 5 damage to the Worker.</li>
+                <li><b>Industrial Fan (@):</b> Weighs 5 units; can be sold for 150 Worker Credits (spawns a Slime near the Supercomputer) or deposited for 10 Company Credits (heals the Worker by 10 HP).</li>
+                <li><b>Alien Artifact (?):</b> Weighs 1 unit; can be sold for 200 Worker Credits (50% chance of poisoning the Worker) or deposited for 100 Company Credits (teleports the Worker to a random valid location on the same map).</li>
+                <li><b>Electric Rod:</b> Wieldable weapon that deals 5 damage to the primary target and triggers chain lightning, dealing 3 damage to every other actor adjacent to the wielder.</li>
+                <li><b>Frost Blade:</b> Wieldable weapon that deals 6 damage to the primary target and transforms its tile into an IceTile for 5 turns.</li>
+                <li><b>Parasite Rifle:</b> Wieldable weapon that scans the entire row in the chosen direction, instantly kills the first Parasite found and creates PoisonGround on its tile; misses trigger a 15-turn cooldown.</li>
+                <li><b>FireMine (☼):</b> Unpickable proximity trap that detonates when an actor enters its tile, dealing 10 instant damage and applying BurnStatus (2 damage per turn for 3 turns) within its 3×3 blast radius.</li>
+                <li><b>GasMine (☁):</b> Unpickable proximity trap that detonates when an actor enters its tile, dealing 5 instant damage and applying PoisonStatus (1 damage per turn for 5 turns) within its 3×3 blast radius.</li>
+                <li><b>StunMine (⚡):</b> Unpickable proximity trap that detonates when an actor enters its tile, dealing no physical damage but applying StunStatus for 2 turns within its 3×3 blast radius.</li>
+            </ul>
+        </details>
+
+        <!-- Other components section. -->
+        <details>
+            <summary>OTHER COMPONENTS</summary>
+            <ul>
+                <li><b>Facility Alarm System:</b> Detects alarm triggers and activates consequences, such as making Undead hunt Workers and temporarily locking doors.</li>
+                <li><b>Alarm State:</b> Tracks whether the alarm is active and how many turns remain before it stops.</li>
+                <li><b>Quota System:</b> Starts at Company Rank 1 with a quota of 100 Company Credits and a 200-turn deadline; when completed, increases the quota by 5% and the time limit by 10%, rounding both upwards.</li>
+                <li><b>Company Credits:</b> Separate currency used exclusively to meet the quota through resource deposits.</li>
+                <li><b>Worker Credits:</b> Personal currency used by Workers to purchase items from the Supercomputer.</li>
+                <li><b>Infected Status:</b> Applies different effects depending on the host: damages Workers, kills Undead, drains Lantern oil, reduces Cookie quantity and spawns Parasites, or makes Scrap Snatchers aggressive while damaging them by 1 HP per turn.</li>
+                <li><b>Creature Spawn Reaction:</b> Every newly spawned creature triggers its corresponding reaction: Undead gain 1 maximum HP per adjacent creature, Slimes force adjacent Workers to drop all carried items, and Parasites deal 2 damage to adjacent Workers.</li>
+                <li><b>Loot Explosion:</b> When a Scrap Snatcher spawns, places one randomly selected depositable resource on every valid adjacent tile.</li>
+                <li><b>Poison Status:</b> Deals damage over time when applied by infections, weapon effects or resource sales.</li>
+                <li><b>Burn Status:</b> Deals damage over time when applied by Plasma Cutter purchases or Fire Mine explosions.</li>
+                <li><b>Stun Status:</b> Prevents affected actors from performing normal actions for 2 turns.</li>
+                <li><b>Detonatable Interface:</b> Defines how trap items detect actors on their tile and initiate explosions.</li>
+                <li><b>TrapTriggerable Interface:</b> Defines how Grounds and Actors respond to trap explosion effects.</li>
+                <li><b>TrapExplosionAction:</b> Calculates the 3×3 blast radius, applies damage and status effects, transforms affected terrain and removes the detonated trap.</li>
+                <li><b>Wieldable Interface:</b> Defines the behaviour required for weapons that Workers can carry and use to attack.</li>
+                <li><b>WeaponEffect (Abstract Class):</b> Defines the common structure for applying special weapon effects after a successful attack.</li>
+                <li><b>ChainLightningEffect:</b> Applies chain lightning damage to adjacent actors and removes secondary victims killed by the attack.</li>
+                <li><b>FrostEffect:</b> Replaces the target's ground with IceTile and applies cold damage and frostbite.</li>
+                <li><b>ParasiteBlastEffect:</b> Removes the targeted Parasite and replaces its location with PoisonGround.</li>
+                <li><b>WieldAttackAction:</b> Executes weapon attacks against valid targets and triggers their corresponding effects.</li>
+                <li><b>BuyWeaponAction:</b> Deducts Worker Credits and adds the selected weapon to the Worker's inventory.</li>
+                <li><b>Weapon Cooldown:</b> Tracks the Parasite Rifle's 15-turn cooldown after a missed shot.</li>
+                <li><b>PoisonGround Duration:</b> Tracks the 6-turn lifetime of PoisonGround tiles.</li>
+                <li><b>IceTile Duration:</b> Tracks the 5-turn lifetime of IceTile tiles.</li>
+                <li><b>Console Messages:</b> Prints descriptive messages for purchases, deposits, sales, healing, teleportation, explosions and status effects.</li>
+                <li><b>Trap Trigger Detection:</b> Checks whether an actor has stepped onto a trap item during the engine tick cycle.</li>
+            </ul>
+        </details>
+
+    </div>
+</div>
+
 
 </body>
 </html>

@@ -1249,3 +1249,137 @@ body {
     display: block;
     object-fit: fill;
 }
+
+
+
+/* Game guide popup background. */
+.game-guide-modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Show the game guide popup. */
+.game-guide-modal.active {
+    display: flex;
+}
+
+/* Game guide popup content. */
+.game-guide-content {
+    background: #111;
+    color: #ddd;
+    border: 2px solid #777;
+    width: 100%;
+    max-width: 850px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 25px;
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+/* Popup header. */
+.game-guide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #555;
+    padding-bottom: 12px;
+}
+
+/* Popup title. */
+.game-guide-header h2 {
+    color: #7cff7c;
+    margin: 0;
+}
+
+/* Close button. */
+#close-game-guide {
+    background: #8b2222;
+    color: white;
+    border: 1px solid #ff7777;
+    padding: 8px 14px;
+    cursor: pointer;
+    font-family: monospace;
+}
+
+/* Introduction text. */
+.game-guide-intro {
+    color: #aaa;
+    line-height: 1.6;
+}
+
+/* Expandable sections. */
+.game-guide-content details {
+    border: 1px solid #444;
+    margin-top: 15px;
+    padding: 12px;
+}
+
+/* Section headings. */
+.game-guide-content summary {
+    color: #7cff7c;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 1px;
+}
+
+/* Guide descriptions. */
+.game-guide-content li {
+    margin: 12px 0;
+    line-height: 1.6;
+    color: #ccc;
+}
+
+/* Highlight item and actor names. */
+.game-guide-content li b {
+    color: #fff;
+}
+
+/* Mobile layout. */
+@media (max-width: 600px) {
+    .game-guide-content {
+        padding: 15px;
+        max-height: 90vh;
+    }
+}
+
+/* Arrange starting page buttons vertically. */
+#start-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Give both buttons the same appearance. */
+#start-buttons button {
+    width: 220px;
+    height: 48px;
+    box-sizing: border-box;
+
+    background: #222;
+    color: #7cff7c;
+    border: 2px solid #7cff7c;
+
+    font-family: monospace;
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+/* Keep the same hover effect for both buttons. */
+#start-buttons button:hover {
+    background: #7cff7c;
+    color: #111;
+}

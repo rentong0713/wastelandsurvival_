@@ -1292,4 +1292,35 @@ document.addEventListener("DOMContentLoaded", function () {
 // Clear the previous game status.
     localStorage.removeItem("gameStarted");
 
+
+
+// Get the game guide elements.
+    const gameGuideButton = document.getElementById("game-guide-button");
+    const gameGuideModal = document.getElementById("game-guide-modal");
+    const closeGameGuideButton = document.getElementById("close-game-guide");
+
+// Open the game guide when its button is clicked.
+    gameGuideButton.addEventListener("click", function () {
+        gameGuideModal.classList.add("active");
+    });
+
+// Close the game guide when the close button is clicked.
+    closeGameGuideButton.addEventListener("click", function () {
+        gameGuideModal.classList.remove("active");
+    });
+
+// Close the game guide when clicking outside its content.
+    gameGuideModal.addEventListener("click", function (event) {
+        if (event.target === gameGuideModal) {
+            gameGuideModal.classList.remove("active");
+        }
+    });
+
+// Close the game guide when Escape is pressed.
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            gameGuideModal.classList.remove("active");
+        }
+    });
+
 });
