@@ -4,38 +4,14 @@
     box-sizing: border-box;
 }
 
-/* Style the page. */
+/* Set a cold, lunar surface background. */
 body {
     margin: 0;
     padding: 20px;
-    background-color: #C2B280;
-    color: white;
+    background-color: #34394a;
+    color: #e6e8f0;
     font-family: Arial, sans-serif;
     overflow-x: hidden;
-}
-
-/* Centre the player selection screen. */
-#start-screen {
-    min-height: calc(100vh - 40px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 25px;
-    text-align: center;
-}
-
-/* Style the main game title. */
-#start-screen h1 {
-    font-size: 42px;
-    color: white;
-    letter-spacing: 3px;
-}
-
-/* Style the selection instruction. */
-#start-screen p {
-    font-size: 18px;
-    color: white;
 }
 
 /* Arrange player selection buttons. */
@@ -46,45 +22,212 @@ body {
     gap: 12px;
 }
 
-/* Style each player selection button. */
-.player-option {
-    padding: 15px 22px;
-    border: 2px solid white;
-    border-radius: 8px;
-    background-color: #66543b;
-    color: white;
+/* =========================================
+   GLOBAL THEME
+   ========================================= */
+
+/* Apply consistent sizing to all elements. */
+* {
+    box-sizing: border-box;
+}
+
+/* Style the entire website. */
+body {
+    margin: 0;
+    padding: 20px;
+    background: #b8a77b;
+    color: #f4ead2;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* =========================================
+   STARTING SCREEN
+   ========================================= */
+
+/* Centre the player selection screen. */
+#start-screen {
+    min-height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+}
+
+/* Main game title. */
+#start-screen h1 {
+    margin: 0;
+    color: #f5d47b;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    letter-spacing: 5px;
+    text-shadow: 3px 3px 0 #59452b,
+    0 0 18px rgba(245, 212, 123, 0.3);
+}
+
+/* Selection instruction. */
+#start-screen > p {
+    margin: 5px 0;
+    color: #594b32;
     font-size: 16px;
-    cursor: pointer;
+    font-weight: bold;
 }
 
-/* Highlight the selected player count. */
-.player-option.selected {
-    background-color: #b8860b;
-    border-color: #ffe08a;
+/* Game introduction panel. */
+#game-description {
+    width: 100%;
+    max-width: 650px;
+    padding: 25px 30px;
+    background: rgba(42, 39, 29, 0.95);
+    border: 2px solid #b99a54;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Add a hover effect. */
-.player-option:hover {
-    background-color: #8b7049;
+/* Introduction heading. */
+#game-description h2 {
+    margin: 0 0 15px;
+    color: #f5d47b;
+    font-size: 22px;
+    letter-spacing: 3px;
 }
 
-/* Style the start game button. */
-#start-game-button {
-    padding: 16px 40px;
-    border: none;
+/* Introduction paragraphs. */
+#game-description p {
+    color: #ded4bc;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* Introduction closing statement. */
+#game-description h3 {
+    margin: 18px 0 0;
+    color: #d6b75c;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+/* =========================================
+   PLAYER SELECTION
+   ========================================= */
+
+/* Arrange player selection buttons. */
+#player-selection {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* Style player selection buttons. */
+.player-option {
+    min-width: 105px;
+    padding: 13px 20px;
+    border: 2px solid #75613d;
     border-radius: 8px;
-    background-color: #386641;
-    color: white;
-    font-size: 18px;
+    background: #51432f;
+    color: #f4ead2;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.2s ease;
 }
 
-/* Show when the start button is disabled. */
-#start-game-button:disabled {
-    background-color: #777777;
-    cursor: not-allowed;
+/* Highlight selected player count. */
+.player-option.selected {
+    background: #b8860b;
+    border-color: #ffe08a;
+    color: #211b10;
+    box-shadow: 0 0 12px rgba(255, 224, 138, 0.35);
 }
+
+/* Hover effect. */
+.player-option:hover {
+    border-color: #e6c46c;
+    background: #78613c;
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   START AND GUIDE BUTTONS
+   ========================================= */
+
+/* Arrange the two main buttons vertically. */
+#start-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+/* Give both buttons exactly the same appearance. */
+#start-buttons button {
+    width: 240px;
+    min-height: 50px;
+    padding: 14px 20px;
+    border: 2px solid #d6b75c;
+    border-radius: 8px;
+    background: #51432f;
+    color: #f5d47b;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+/* Hover effect for both buttons. */
+#start-buttons button:hover:not(:disabled) {
+    background: #b8860b;
+    color: #211b10;
+    border-color: #ffe08a;
+    transform: translateY(-2px);
+}
+
+/* Disabled start button. */
+#start-game-button:disabled {
+    background: #777;
+    border-color: #999;
+    color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =========================================
+   PLAYER NAME INPUTS
+   ========================================= */
+
+/* Arrange name input fields vertically. */
+#player-name-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+/* Style name input fields. */
+.player-name-input {
+    width: 100%;
+    padding: 13px;
+    border: 2px solid #75613d;
+    border-radius: 8px;
+    background: #f3ead6;
+    color: #302719;
+    font-size: 14px;
+    outline: none;
+}
+
+/* Highlight selected input. */
+.player-name-input:focus {
+    border-color: #b8860b;
+    box-shadow: 0 0 8px rgba(184, 134, 11, 0.3);
+}
+
 
 /* Hide the game screen when inactive. */
 #game-screen[hidden] {
@@ -1382,4 +1525,234 @@ body {
 #start-buttons button:hover {
     background: #7cff7c;
     color: #111;
+}
+
+
+/* =========================================
+   GAME INTERFACE REDESIGN
+   ========================================= */
+
+/* Main game background. */
+#game-screen {
+    color: #f4ead2;
+}
+
+/* Main game heading. */
+#game-screen > h1 {
+    color: #f5d47b;
+    font-size: 30px;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px #59452b;
+}
+
+/* Top status panel. */
+#top-status-bar {
+    background: #393326;
+    border: 2px solid #b99a54;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Status labels. */
+.top-status-item p {
+    color: #d6b75c;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Current player name. */
+#current-player-name {
+    color: #f5d47b;
+    font-weight: bold;
+}
+
+/* Sidebar panels. */
+#action-panel,
+#game-message {
+    background: #393326;
+    border: 2px solid #b99a54;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Sidebar headings. */
+#action-panel h2,
+#game-message h3 {
+    color: #f5d47b;
+    letter-spacing: 1px;
+}
+
+/* Action buttons. */
+.action-button {
+    background: #51432f;
+    border: 1px solid #a58b53;
+    border-radius: 6px;
+    color: #f4ead2;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+/* Action button hover. */
+.action-button:hover {
+    background: #806638;
+    border-color: #f5d47b;
+}
+
+/* Movement buttons. */
+.movement-button {
+    background: #51432f;
+    border: 1px solid #b99a54;
+    border-radius: 7px;
+}
+
+/* Movement button hover. */
+.movement-button:hover {
+    background: #b8860b;
+    color: #211b10;
+}
+
+/* Inventory button. */
+#inventory-button {
+    background: #51432f;
+    border: 2px solid #b99a54;
+    border-radius: 8px;
+    color: #f4ead2;
+}
+
+/* Inventory button hover. */
+#inventory-button:hover {
+    background: #806638;
+}
+
+/* Inventory popup. */
+.inventory-modal {
+    background: #393326;
+    border: 2px solid #d6b75c;
+    border-radius: 12px;
+}
+
+/* Game message. */
+#message-text {
+    color: #ded4bc;
+    line-height: 1.7;
+}
+
+/* Camera controls. */
+#map-camera-controls button {
+    background: #51432f;
+    border: 1px solid #b99a54;
+    border-radius: 6px;
+    color: #f4ead2;
+}
+
+/* Camera controls hover. */
+#map-camera-controls button:hover {
+    background: #806638;
+}
+
+
+/* =========================================
+   GAME GUIDE REDESIGN
+   ========================================= */
+
+/* Dark popup background. */
+.game-guide-modal {
+    background: rgba(20, 18, 13, 0.88);
+    backdrop-filter: blur(5px);
+}
+
+/* Guide window. */
+.game-guide-content {
+    background: #393326;
+    color: #f4ead2;
+    border: 2px solid #d6b75c;
+    border-radius: 12px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Guide heading. */
+.game-guide-header h2 {
+    color: #f5d47b;
+    letter-spacing: 3px;
+}
+
+/* Guide introduction. */
+.game-guide-intro {
+    color: #d2c5a7;
+    line-height: 1.7;
+}
+
+/* Expandable guide sections. */
+.game-guide-content details {
+    background: #51432f;
+    border: 1px solid #a58b53;
+    border-radius: 8px;
+    margin-top: 12px;
+    padding: 14px;
+}
+
+/* Guide section headings. */
+.game-guide-content summary {
+    color: #f5d47b;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+/* Guide descriptions. */
+.game-guide-content li {
+    color: #e0d6c0;
+    line-height: 1.7;
+}
+
+/* Highlight names. */
+.game-guide-content li b {
+    color: #f5d47b;
+}
+
+/* Close button. */
+#close-game-guide {
+    background: #795044;
+    border: 1px solid #d6b75c;
+    border-radius: 6px;
+    color: white;
+}
+
+/* Close button hover. */
+#close-game-guide:hover {
+    background: #a34c3e;
+}
+
+/* Centre the game introduction panel. */
+#game-description {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 25px 30px;
+
+    background: #393326;
+    border: 2px solid #b99a54;
+    border-radius: 12px;
+
+    text-align: center;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* Centre the introduction heading. */
+#game-description h2 {
+    text-align: center;
+    color: #f5d47b;
+}
+
+/* Centre the introduction paragraphs. */
+#game-description p {
+    text-align: center;
+    color: #ded4bc;
+    line-height: 1.8;
+}
+
+/* Centre the closing statement. */
+#game-description h3 {
+    text-align: center;
+    color: #d6b75c;
 }
